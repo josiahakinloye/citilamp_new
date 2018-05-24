@@ -113,6 +113,20 @@ def get_country_safety_stats(country):
             del safety_stat[k]
     return safety_stat
 
+def reformat_image_ref(x):
+    match = re.search(r"src=.*?\s", x.replace('\\',''))
+    img_src = str(match.group().split('=')[1].strip()).replace("'","")
+    return 'http://hisz.rsoe.hu/alertmap/index2.php/'+img_src
+
+def prepare_recent_disaster_table():
+    json_data = requests.get('http://hisz.rsoe.hu/alertmap/database/mapData/emerg.json').json()
+    json_data = json_data['data']
+
+    for data in copy.deepcopy(json_data):
+        data['level'] = reformat_image_ref(data['level'])
+
+    return json_data
+
 if __name__ == "__main__":
     print (human_attack_safety_status('Nigeria'))
     print(natural_disaster_safety_status('Palestine'))

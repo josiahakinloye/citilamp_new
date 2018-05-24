@@ -1,0 +1,42 @@
+{% load static %}
+
+<section class="section-80 bg-wild-wand">
+    <div class="container">
+        <h3>Recent disasters</h3>
+        <div class="row justify-content-sm-center">
+            <div class="col-lg-10 col-xl-12">
+                <div class="row row-30 row-offset-1 justify-content-sm-between">
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Upd.</th
+                            ><th>When</th>
+                            <th>Date (UTC)</th>
+                            <th>Event</th>
+                            <th>Country</th>
+                            <th>Location</th>
+                            <th>Level</th>
+                            <th>Details</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for disaster in recent_disasters %}
+                        <tr>
+                            <td>{{disaster['updated']}}</td>
+                            <td>{{disaster['timeAgo'}}</td>
+                            <td>{{disaster['eventDate']}}</td>
+                            <td>{{disaster['category']}}</td>
+                            <td>{{disaster['country']}}</td>
+                            <td>{{disaster['location']}}</td>
+                            <td><img src="{{disaster['level']}}" alt="Damage level" width="68" height="8" border="0"></td>
+                            <td><a title="Details" href="database/?pageid=event_summary&amp;edis_id=HT-20180522-63215-IND"><i class="fa fa-eye"></i></a></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

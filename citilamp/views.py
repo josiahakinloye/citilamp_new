@@ -3,9 +3,14 @@ from django.views.generic import TemplateView, FormView
 
 from about.models import Testimonial
 from CitilampSite.utils.news import get_headline_news
+from CitilampSite.tripAdvisor.safety import prepare_recent_disaster_table
 from tour.models import Tour
 from .forms import ContactUsForm
 from .models import GalleryPhoto
+
+
+
+
 
 
 class HomePageView(TemplateView):
@@ -16,6 +21,7 @@ class HomePageView(TemplateView):
         context['testimonials'] = Testimonial.objects.filter(is_approved=True, is_featured=True)
         context['tours'] = Tour.objects.filter(is_active=True, is_featured=True)
         context['news'] = list(get_headline_news())
+        context['recent_disasters'] = prepare_recent_disaster_table()
         return context
 
 
