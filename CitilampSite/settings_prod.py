@@ -1,4 +1,5 @@
-DEBUG = False
+#todo change back to false
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'citilamp.com', 'paypal.com', '*.paypal.com', 'bitpay.com', 'test.bitpay.com']
 
