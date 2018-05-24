@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+img.rounded-circle {
+    height: 80px;
+}
+</style>
+{% endblock %}
+
+{% block title %}Testimonials{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-32-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">Testimonials</h1>
+                    <h6 class="font-italic">The latest reviews submitted by our clients</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials 1-->
+    <section class="section-60">
+        <div class="container">
+            <h3>Testimonials</h3>
+            <p>Here is what our clients say</p>
+            <div class="row justify-content-sm-center">
+                <div class="col-md-10">
+                    <!-- Owl Carousel-->
+                    <div class="owl-carousel owl-dots-primary owl-navs-offset-inverse" data-items="1" data-stage-padding="0" data-loop="false" data-margin="0" data-mouse-drag="false" data-dots="true" data-nav="true" data-animation-in="fadeIn" data-animation-out="fadeOut">
+                        {% for item in testimonials %}
+                        <div class="owl-item">
+                            <blockquote class="quote quote-fullwidth">
+                                <div class="quote-fullwidth-img-wrap"><img class="img-responsive center-block" src="{{ item.booking.tour.get_showcase }}" width="770" height="380" alt=""></div>
+                                <div class="quote-fullwidth-body-top">
+                                    <label class="label-custom label-primary">from ${{ item.booking.tour.price }}</label>
+                                    <h5 class="text-spacing-400 text-ubold">{{ item.booking.tour.title }}</h5>
+                                </div>
+                                <div class="quote-fullwidth-body-bottom">
+                                    <div class="unit align-items-sm-center unit-xs flex-sm-row">
+                                        <div class="unit-left"><img class="rounded-circle img-responsive" src="{{ item.user.profile.get_photo_url }}" width="80" height="80" alt=""></div>
+                                        <div class="unit-body">
+                                            <p class="text-small text-ubold text-uppercase text-ubold text-spacing-200"><a class="text-white">{{ item.booking.user.get_full_name }}</a></p>
+                                            <p class="text-small font-italic">
+                                                <q>“{{ item.text }}”</q>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block extra_css %}
+    <style>
+    #login-form {
+        margin-top: 25px;
+    }
+    .alert-danger {
+        color: #a94442;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black" data-parallax-img="{% static 'images/backgrounds/background-26-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="container section-80 section-md-top-135 section-md-bottom-145">
+                <div class="row justify-content-sm-center">
+                    <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+                        <!-- Box-->
+                        <div class="box box-lg d-block bg-default inset-xl-left-60 inset-xl-right-60">
+                            <h5 class="text-ubold text-md-left">Login</h5>
+                            {% if form.non_field_errors %}
+                                {% for err in form.non_field_errors %}
+                                    <div class="alert alert-danger">{{ err }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <form id="login-form" method="post">
+                                {% csrf_token %}
+                                <div class="form-wrap form-wrap-xs">
+                                    <label class="form-label" for="login-email">Your Email</label>
+                                    <input class="form-input" id="login-email" type="email" name="email" value="{{ form.email.value|default_if_none:'' }}" data-constraints="@Email @Required">
+                                    <span class="form-validation">{{ form.email.errors.0 }}</span>
+                                </div>
+                                <div class="form-wrap form-wrap-xs form-offset-bottom-none">
+                                    <label class="form-label" for="login-password">Password</label>
+                                    <input class="form-input" id="login-password" type="password" name="password" data-constraints="@Required">
+                                    <span class="form-validation">{{ form.password.errors.0 }}</span>
+                                </div>
+                                <div class="form-wrap-checkbox">
+                                    <div class="pull-sm-left">
+                                        <p class="text-extra-small"><a class="text-primary" href="{% url 'account_password_reset' %}">Forgot Your Password?</a></p>
+                                    </div>
+                                    <div class="pull-sm-right form-wrap">
+                                        <label class="checkbox-inline checkbox-inline-right">
+                                            <input class="checkbox-custom" name="remember" value="checkbox-1" type="checkbox"><span class="text-extra-small text-black inset-right-10">Remember Me</span>
+                                        </label>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-button">
+                                    <button class="button button-block button-icon button-icon-right button-primary" type="submit"><span>log in</span><span class="icon icon-xxs mdi mdi-chevron-right" style="float:none; margin-top: -1px;"></span></button>
+                                </div>
+                            </form>
+                            <p class="text-extra-small">Don`t have an account? <a class="text-primary" href="{% url 'custom_signup' %}">Sign Up</a> now!</p>
+                            <div class="section-hidden section-hidden-2">
+                                <p class="divider-both-lines text-silver-chalice font-italic">or use your social account</p>
+                            </div>
+                            <!-- List Inline-->
+                            <ul class="list-inline list-inline-13">
+                                <li class="text-center"><a class="icon icon-xxs icon-circle icon-circle-lg icon-filled-twitter fa fa-twitter text-white" href="{% url 'social:begin' 'twitter' %}"></a></li>
+                                <li class="text-center"><a class="icon icon-xxs icon-circle icon-circle-lg icon-filled-facebook fa fa-facebook text-white" href="{% url 'social:begin' 'facebook' %}"></a></li>
+                                <li class="text-center"><a class="icon icon-xxs icon-circle icon-circle-lg icon-filled-google-plus fa fa-google-plus text-white" href="{% url 'social:begin' 'google-oauth2' %}"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

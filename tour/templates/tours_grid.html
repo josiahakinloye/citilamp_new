@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="row row-30 row-offset-1 justify-content-sm-center justify-content-md-start justify-content-lg-center">
+    {% for tour in tours %}
+        <div class="col-md-6 col-lg-4">
+            <div class="box-offer box-offer-xs">
+                <div class="box-offer-img-wrap"><a href="{% url 'tour_details' tour_id=tour.id %}">
+                    <img class="img-responsive center-block" src="{{ tour.get_showcase }}" width="270" height="240" alt=""></a>
+                </div>
+                <div class="box-offer-caption text-left">
+                    <div class="pull-left">
+                        <div class="box-offer-title text-ubold">
+                            <a class="text-black" href="{% url 'tour_details' tour_id=tour.id %}">{{ tour.title }}</a>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <div class="box-offer-price text-black">${{ tour.get_price }}</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- List Inline-->
+                    <ul class="list-inline list-inline-13 list-inline-marked list-inline-marked-offset-inverse-top text-silver-chalice text-extra-small">
+                        <li>{{ tour.get_cities_list|join:', ' }}</li>
+                        <li>{{ tour.get_tour_days }} days</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

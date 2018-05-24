@@ -1,0 +1,35 @@
+{% load static %}
+
+<section class="section-70 section-md-bottom-80 wow fadeIn" data-wow-delay=".2s">
+    <div class="container">
+        <h3>Best Offers</h3>
+        <p>Check out our best promotions tour</p>
+    </div>
+    <!-- Owl Carousel-->
+    <div class="owl-carousel owl-carusel-inset-bottom owl-nav-type-2 owl-dots-primary" data-items="1" data-md-items="2" data-lg-items="3" data-xl-items="5" data-stage-padding="10" data-xs-stage-padding="45" data-md-stage-padding="0" data-loop="false" data-margin="20" data-xs-margin="50" data-lg-margin="10" data-xl-margin="30" data-mouse-drag="false" data-dots="true" data-nav="true">
+        {% for tour in tours %}
+        <div class="owl-item">
+            <div class="box-offer-centered context-dark">
+                <div class="box-offer-centered-img-wrap"><img class="img-responsive center-block" src="{{ tour.get_showcase }}" width="370" height="310" alt=""></div>
+                <div class="box-offer-centered-caption">
+                    <div class="box-offer-centered-title text-big text-ubold">
+                        <a href="{% url 'tour_details' tour_id=tour.id %}">{{ tour.title }}</a>
+                    </div>
+                    <!-- List Inline-->
+                    <ul class="list-inline list-inline-13 list-inline-marked text-small">
+                        <li>{{ tour.get_cities_list|join:', ' }}</li>
+                        <li>{{ tour.get_tour_days }} days</li>
+                    </ul>
+                    <div class="box-offer-centered-hover">
+                        <div class="box-offer-centered-hover-caption">
+                            <hr class="divider divider-xs bg-black">
+                            <h4 class="text-white font-weight-bold">${{ tour.get_price }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="button button-primary" href="{% url 'tours_all' %}">View ALL TOUR</a>
+</section>

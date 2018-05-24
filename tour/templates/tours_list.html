@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="row row-30 row-lg-20 row-offset-1 justify-content-sm-center justify-content-md-start justify-content-lg-center">
+    {% for tour in tours %}
+        <div class="col-sm-10 col-md-6 col-xl-12">
+            <!-- Box Offer-->
+            <div class="box-offer box-offer-sm box-offer-left">
+                <div class="box-offer-img-wrap">
+                    <a href="{% url 'tour_details' tour_id=tour.id %}">
+                        <img id="tour_showcase" class="img-responsive center-block" src="{{ tour.get_showcase }}" width="270" alt="{{ tour.title }}">
+                    </a>
+                </div>
+                <div class="box-offer-caption text-left">
+                    <div class="box-offer-caption-inner-wrap">
+                        <div class="box-offer-caption-inner-left">
+                            <p class="text-extra-small text-silver-chalice">
+                                {{ tour.start_date }} - {{ tour.end_date }}  /  {{ tour.get_tour_days }} days
+                            </p>
+                            <div class="box-offer-title text-ubold"><a class="text-black" href="{% url 'tour_details' tour_id=tour.id %}">{{ tour.title }}</a></div>
+                        </div>
+                        <div class="box-offer-caption-inner-right text-right">
+                            <p class="text-extra-small text-spacing-500 text-silver-chalice">PRICE</p>
+                            <!-- List Inline-->
+                            <ul class="list-inline inset-right-5">
+                                {% if tour.discounted_price > 0.00 %}
+                                    <li class="text-extra-small text-black text-strike text-middle">${{ tour.price }}</li>
+                                {% endif %}
+                                <li class="box-offer-price text-black text-ubold text-primary text-middle">
+                                    ${{ tour.get_price }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="box-offer-caption-inner-wrap box-offer-caption-inner-wrap-bottom">
+                        <div class="box-offer-caption-inner-left box-offer-description">
+                            <p class="text-small text-silver-chalice">{{ tour.description }}</p>
+                        </div>
+                        <div class="box-offer-caption-inner-right text-xl-right"><a class="button button-width-110 button-primary" href="{% url 'tour_details' tour_id=tour.id %}">VIEW MORE</a></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

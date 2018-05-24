@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-27-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">Contact Us</h1>
+                    <h6 class="font-italic">Let`s keep in touch!</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us-->
+    <section class="section-80">
+        <div class="container">
+            <div class="row row-50 justify-content-sm-center justify-content-lg-between text-md-left">
+                <div class="col-md-10 col-lg-4">
+                    <h5 class="text-ubold">Contact Our Agency</h5>
+                    <p class="text-offset-2 text-small text-left">
+                        At SunTravel we want to make sure that your trip is everything
+                        you could possibly dream of. Whether you want inspiration
+                        and guidance in planning your next adventure or need help
+                        with an existing booking, our travel experts are here to help.
+                        Send us an email or give our team a call to book your flights,
+                        plan your adventure or get help with any problems you
+                        encounter along the way. Or if you're nearby, you can
+                        visit us in store to speak face to face. Our assistance doesn't
+                        end when you take off either; our team
+                        are on hand to assist with any issues you may have.
+                    </p>
+                </div>
+                <div class="col-md-10 col-lg-4 col-xl-3">
+                    <h5 class="text-ubold">Our Contacts</h5>
+                    <!-- Contact Info-->
+                    <address class="contact-info text-left">
+                        <p class="d-block text-small contact-info-address"><a class="text-gray" href="#"><span class="unit flex-row unit-spacing-xs"><span class="unit-left"><img class="img-responsive center-block" src="{% static 'images/icons/icon-01-16x21.png' %}" width="16" height="21" alt=""></span><span class="unit-body"><span>732/21 Second Street, Manchester, King Street, Kingston United Kingdom</span></span></span></a></p>
+                        <p class="d-block text-small"><a class="text-gray" href="callto:#"><span class="unit align-items-center flex-row unit-spacing-xs"><span class="unit-left"><img class="img-responsive center-block" src="{% static 'images/icons/icon-02-19x19.png' %}" width="19" height="19" alt=""></span><span class="unit-body"><span>345-677-554</span></span></span></a></p>
+                        <p class="d-block text-small"><a class="text-gray" href="callto:#"><span class="unit align-items-center flex-row unit-spacing-xs"><span class="unit-left"><img class="img-responsive center-block" src="{% static 'images/icons/icon-03-12x20.png' %}" width="12" height="20" alt=""></span><span class="unit-body"><span>323-678-567</span></span></span></a></p>
+                        <p class="d-block text-small"><a class="text-gray" href="mailto:#"><span class="unit align-items-center flex-row unit-spacing-xs"><span class="unit-left"><img class="img-responsive center-block" src="{%  static 'images/icons/icon-04-20x13.png' %}" width="20" height="13" alt=""></span><span class="unit-body"><span>info@demolink.org</span></span></span></a></p>
+                        <p class="d-block text-small"><a class="text-gray" href="#"><span class="unit align-items-center flex-row unit-spacing-xs"><span class="unit-left"><img class="img-responsive center-block" src="{% static 'images/icons/icon-05-19x19.png' %}" width="19" height="19" alt=""></span><span class="unit-body"><span>demolink.org</span></span></span></a></p>
+                    </address>
+                </div>
+                <div class="col-md-10 col-lg-4 col-xl-3">
+                    <h5 class="text-ubold">Any Questions?</h5>
+                    <!-- RD Mailform-->
+                    <form class="rd-mailform text-left" data-form-output="form-output-global" data-form-type="contact" method="post">
+                        {% csrf_token %}
+                        <div class="form-wrap form-wrap-xs">
+                            <label class="form-label" for="questions-contact-name">Your Name</label>
+                            <input class="form-input" id="questions-contact-name" type="text" name="full_name" {% if user.is_authenticated %}value="{{ user.first_name }} {{ user.last_name }}"{% endif %} data-constraints="@Required">
+                        </div>
+                        <div class="form-wrap form-wrap-xs">
+                            <label class="form-label" for="questions-contact-email">Email</label>
+                            <input class="form-input" id="questions-contact-email" type="email" name="email" {% if user.is_authenticated %}value="{{ user.email }}"{% endif %} data-constraints="@Email @Required">
+                        </div>
+                        <div class="form-wrap form-wrap-xs">
+                            <label class="form-label" for="questions-contact-message">Message</label>
+                            <textarea class="form-input" id="questions-contact-message" name="message" data-constraints="@Required" style="height:120px;"></textarea>
+                        </div>
+                        <div class="form-button text-center text-md-left">
+                            <button class="button button-width-110 button-primary" type="submit">SEND MESSAGE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- RD Google Map-->
+    <section class="rd-google-map rd-google-map__model" data-zoom="14" data-x="-73.9874068" data-y="40.643180" data-styles="[{&quot;featureType&quot;:&quot;administrative.country&quot;,&quot;elementType&quot;:&quot;geometry&quot;,&quot;stylers&quot;:[{&quot;visibility&quot;:&quot;simplified&quot;},{&quot;hue&quot;:&quot;#ff0000&quot;}]}]">
+        <ul class="map_locations">
+            <li data-y="40.643180" data-x="-73.9874068">
+                <p>9870 St Vincent Place, Glasgow, DC 45 Fr 45.</p>
+            </li>
+        </ul>
+    </section>
+{% endblock %}

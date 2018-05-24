@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block extra_css %}
+    <style>
+    #password-form {
+        margin-top: 25px;
+    }
+    .alert-danger {
+        color: #a94442;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black" data-parallax-img="{% static 'images/backgrounds/background-18-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="container section-80 section-md-top-135 section-md-bottom-145">
+                <div class="row justify-content-sm-center">
+                    <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4 text-left">
+                        <!-- Box-->
+                        <div class="box box-lg box-lg-variant-2 bg-default">
+                            <h5 class="text-ubold">Update Profile</h5>
+                            {% if form.non_field_errors %}
+                                {% for err in form.non_field_errors %}
+                                    <div class="alert alert-danger">{{ err }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <form id="password-form" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-wrap form-wrap-xs">
+                                    <label class="form-label" for="id_first_name">First Name</label>
+                                    <input class="form-input" id="id_first_name" type="text" name="first_name" data-constraints="@Required" value="{{ form.first_name.value|default_if_none:'' }}">
+                                    <span class="form-validation">{{ form.first_name.errors.0 }}</span>
+                                </div>
+                                <div class="form-wrap form-wrap-xs">
+                                    <label class="form-label" for="id_last_name">Last Name</label>
+                                    <input class="form-input" id="id_last_name" type="text" name="last_name" data-constraints="@Required" value="{{ form.last_name.value|default_if_none:'' }}">
+                                    <span class="form-validation">{{ form.last_name.errors.0 }}</span>
+                                </div>
+                                <div class="form-wrap form-wrap-xs">
+                                    <p>Profile Picture</p>
+                                    <input id="id_photo" type="file" name="photo">
+                                    <span class="form-validation">{{ form.photo.errors.0 }}</span>
+                                </div>
+                                <div class="form-button-2">
+                                    <button class="button button-block button-primary" type="submit">UPDATE PROFILE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% load static %}
+
+<header class="page-header slider-menu-position">
+    <!-- RD Navbar-->
+    <div class="rd-navbar-wrap">
+        <nav class="rd-navbar rd-navbar-transparent rd-navbar-right-side rd-navbar-right-side-contacts rd-navbar-right-side-contacts-mobile rd-navbar-dark-stuck rd-navbar-overlay" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-xl-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-lg-stick-up-offset="1px" data-xl-stick-up-offset="1px" data-xxl-stick-up-offset="1px">
+            <div class="rd-navbar-inner">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                    <!-- RD Navbar Toggle-->
+                    <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                    <!-- RD Navbar Brand-->
+                    <div class="rd-navbar-brand rd-navbar-brand-desktop"><a class="brand-name" href="/"><img width="148" height="30" src="{% static 'images/citilamplogo.png' %}" alt=""></a></div>
+                    <!-- RD Navbar Brand-->
+                    <div class="rd-navbar-brand rd-navbar-brand-mobile"><a class="brand-name" href="/"><img width="148" height="30" src="{% static 'images/citilamplogo.png' %}" alt=""></a></div>
+                    <!-- RD Navbar Toggle-->
+                    <button class="rd-navbar-collapse" data-rd-navbar-toggle=".rd-navbar-right-side-contacts"><span></span></button>
+                </div>
+                <div class="rd-navbar-right-side-wrap">
+                    <div class="rd-navbar-nav-wrap">
+                        <!-- RD Navbar Nav-->
+                        <ul class="rd-navbar-nav">
+                            <li {% if request.path == '/' %}class="active"{% endif %}>
+                                <a href="/">Home</a>
+                            </li>
+                            <li {% if request.path == '/tours/' %}class="active"{% endif %}>
+                                <a href="{% url 'tours_all' %}">Tours</a>
+                            </li>
+                            <li {% if '/about/' in request.path %}class="active"{% endif %}>
+                                <a href="{% url 'about_us' %}">About</a>
+                                <ul class="rd-navbar-dropdown">
+                                    <li><a href="{% url 'our_team' %}">Our Team</a></li>
+                                    <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+                                    <li><a href="{% url 'careers' %}">Careers</a></li>
+                                </ul>
+                            </li>
+                            <li {% if '/gallery/' in request.path %}class="active"{% endif %}>
+                                <a href="{% url 'gallery' %}">Gallery</a>
+                            </li>
+                            <li {% if '/blog/' in request.path %}class="active"{% endif %}>
+                                <a href="{% url 'blog:list' %}">Blog</a>
+                            </li>
+                            <li {% if request.path == '/contacts/' %}class="active"{% endif %}>
+                                <a href="{% url 'contacts' %}">Contacts</a>
+                            </li>
+                            {% if request.user.is_authenticated %}
+                                <li {% if '/account/' in request.path %}class="active"{% endif %}>
+                                    <a href="{% url 'account_details' %}">My Account</a>
+                                    <ul class="rd-navbar-dropdown">
+                                        <li>
+                                            <a href="{% url 'account_bookings' %}">My Bookings</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'account_update' %}">Update Profile</a>
+                                        </li>
+                                        {% if not is_social_user %}
+                                        <li>
+                                            <a href="{% url 'custom_account_password' %}">Change Password</a>
+                                        </li>
+                                        {% endif %}
+                                        <li>
+                                            <a href="{% url 'account_logout' %}">Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'custom_login' %}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'custom_signup' %}">Signup</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="divider-vertical bg-default-light d-none d-lg-inline-block"></div>
+                    <div class="rd-navbar-right-side-contacts">
+                        <!-- List Inline-->
+                        <ul class="list-inline list-inline-13">
+                            <li><a class="text-black" href="callto:#"><img class="img-semi-transparent-inverse d-inline-block" src="{% static 'images/icons/icon-12-19x19.png' %}" width="19" height="19" alt=""></a></li>
+                            <li><a class="text-black" href="mailto:#"><img class="img-semi-transparent-inverse d-inline-block" src="{% static 'images/icons/icon-13-20x13.png' %}" width="20" height="13" alt=""></a></li>
+                            <li><a class="text-black" href="#"><img class="img-semi-transparent-inverse d-inline-block" src="{% static 'images/icons/icon-14-19x19.png' %}" width="19" height="19" alt=""></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

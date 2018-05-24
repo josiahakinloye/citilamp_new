@@ -1,0 +1,30 @@
+{% load static %}
+
+<section class="section-80 bg-wild-wand">
+    <div class="container">
+        <h3>Today's News</h3>
+        <div class="row justify-content-sm-center">
+            <div class="col-lg-10 col-xl-12">
+                <div class="row row-30 row-offset-1 justify-content-sm-between">
+                    {% for item in news %}
+                        <div class="col-md-6 col-xl-3">
+                            <div class="inset-left-10 inset-right-10 inset-sm-left-50 inset-sm-right-50 inset-md-left-20 inset-md-right-20 inset-lg-left-10 inset-lg-right-10 inset-xl-left-0 inset-xl-right-0">
+                                <!-- Post Box-->
+                                <div class="post-box d-block text-left">
+                                    <div class="post-box-img-wrap">
+                                        <a href="{{ item.urlToNewsArticle }}" target="_blank"><img src="{{ item.urlToImage }}" width="270" height="240" alt=""/></a>
+                                    </div>
+                                    <div class="post-box-caption">
+                                        <div class="post-box-title text-ubold">
+                                            <a class="text-black" target="_blank" href="{{ item.urlToNewsArticle }}">{{ item.title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

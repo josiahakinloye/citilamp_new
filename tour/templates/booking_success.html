@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-02-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">Booking</h1>
+                    <h4 class="font-italic">{{ tour.title }}</h4>
+                    <h6 class="font-italic">{{ tour.get_cities_list|join:', ' }}</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'overview.html' %}
+
+    <section class="section section-34">
+        <p>
+            Thank you for booking with us. We are verifying your payment. Once your payment is verified, you will receive a confirmation email from us.
+        </p>
+    </section>
+
+{% endblock %}

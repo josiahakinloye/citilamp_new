@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+img.rounded-circle {
+    height: 100px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- Swiper-->
+    {% include 'components/swiper.html' %}
+    <!-- Best Offers-->
+    {% include 'components/best_offers.html' %}
+    <!-- Find Travel Perfection With the Professionalism of Experts-->
+    {% include 'components/find_tour.html' %}
+    <!-- What Customers Say-->
+    {% include 'components/testimonials.html' %}
+    <!-- Why SunTravel-->
+    {% include 'components/why_us.html' %}
+    <!-- Today's News-->
+    {% include 'components/news.html' %}
+{% endblock %}

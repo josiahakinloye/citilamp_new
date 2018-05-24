@@ -1,0 +1,6 @@
+Hi,
+Your booking for "{{ tour.title }}" has been confirmed. We have received your payment.
+Amount Received: ${{ total_amount }}
+
+Have a great trip!
+Thanks

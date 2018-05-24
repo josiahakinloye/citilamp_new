@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Team{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-08-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">Our Team</h1>
+                    <h6 class="font-italic">A team of professionals who are passionate about traveling</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-80 bg-wild-wand bg-wild-wand-team-member">
+        <div class="container">
+            <div class="row row-60 justify-content-sm-center">
+                {% for member in members %}
+                <div class="col-md-8 col-lg-4">
+                    <!-- Team Member-->
+                    <div class="team-member">
+                        <div class="team-member-img-wrap"><img class="rounded-circle img-responsive center-block" src="{{ member.photo.url }}" width="100" height="100" alt=""></div>
+                        <div class="team-member-body">
+                            <div class="team-member-title text-small text-ubold text-uppercase text-spacing-200 text-black">
+                                {{ member.full_name }}
+                            </div>
+                            <div class="team-member-description text-spacing-300 font-italic text-uppercase text-silver-chalice">
+                                {{ member.designation }}
+                            </div>
+                            <p class="text-small font-italic text-silver-chalice">
+                                {{ member.summary }}
+                            </p>
+                        </div>
+                    </div>
+                    <!-- List Inline-->
+                    <ul class="list-inline list-primary list-inline-13">
+                        {% if member.facebook_url %}
+                        <li class="text-center"><a class="icon fa fa-facebook-f text-gray" href="#"></a></li>
+                        {% endif %}
+                        {% if member.twitter_url %}
+                        <li class="text-center"><a class="icon fa fa-twitter text-gray" href="#"></a></li>
+                        {% endif %}
+                        {% if member.youtube_url %}
+                        <li class="text-center"><a class="icon fa fa-youtube text-gray" href="#"></a></li>
+                        {% endif %}
+                        {% if member.linkedin_url %}
+                        <li class="text-center"><a class="icon fa fa-linkedin text-gray" href="#"></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Careers{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-24-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">Careers</h1>
+                    <h6 class="font-italic">Become a part of SunTravel</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers-->
+    <section class="section-80 bg-wild-wand">
+        <div class="container">
+            <!-- Box-->
+            <div class="box box-accordion box-accordion-xs bg-default" style="width:100%;">
+                <!-- Classic Accordion-->
+                <div class="responsive-tabs responsive-tabs-classic" data-type="accordion">
+                    <ul class="resp-tabs-list accordion-xs" data-group="accordion-xs">
+                        {% for job in jobs %}
+                            <li>{{ job.designation }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="resp-tabs-container accordion-xs" data-group="accordion-xs">
+                        {% for job in jobs %}
+                        <div>
+                            <p class="text-extra-small line-height-1">
+                                <a class="text-black">
+                                    <span class="d-inline-block text-middle">
+                                        <img class="img-responsive center-block" src="{% static 'images/icons/icon-22-9x11.png' %}" width="9" height="11" alt="">
+                                    </span>
+                                    <span class="text-middle inset-left-5">
+                                        {{ job.city.name }}, {{ job.country.name }}
+                                    </span>
+                                </a>
+                            </p>
+                            <p>{{ job.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

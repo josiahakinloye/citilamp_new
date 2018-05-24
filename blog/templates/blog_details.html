@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+img.rounded-circle {
+    height: 40px;
+}
+</style>
+{% endblock %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{{ object.image.url }}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-60 section-lg-115">
+                    <h1 class="d-none d-lg-inline-block text-white">
+                        {{ object.title }}
+                    </h1>
+                    <ul class="list-inline list-inline-dashed list-inline-dashed-sm text-small text-white">
+                        <li class="text-uppercase"><img src="{% static 'images/icons/icon-16-16x15-light.png' %}" width="16" height="15" alt=""><span class="text-middle inset-left-10">{{ object.publish }}</span></li>
+                        <li class="text-bottom p text-uppercase"><img src="{% static 'images/icons/icon-17-16x15-light.png' %}" width="16" height="15" alt="">
+                            <span class="inset-left-10">by <a>{{ object.author.get_full_name }}</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-80 bg-wild-wand text-md-left">
+        <div class="container">
+            <div class="row justify-content-sm-center">
+                <div class="col-lg-10 col-xl-12">
+                    <!-- Box-->
+                    <div class="box box-lg box-single-post bg-default d-block">
+                        <div class="text-silver-chalice text-small text-left">
+                            <p>{{ object.content|linebreaks }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-sm-center text-left">
+                <div class="col-lg-10 col-xl-12">
+                    <!-- Box-->
+                    <div class="box box-lg box-single-comments bg-default d-block inset-xl-right-60">
+                        <h4 class="text-ubold">{{ comments.count }} Comments</h4>
+                        <!-- Unit-->
+                        <div class="unit unit-wide flex-column flex-sm-row unit-spacing-sm">
+                            {% if request.user.is_authenticated %}
+                            <div class="unit-left">
+                                <img class="img-responsive rounded-circle" src="{{ user.profile.get_photo_url }}" width="40" height="40" alt=""></div>
+                            <div class="unit-body">
+                                <form class="form-comment" method="post" action="{% url 'blog:comment' slug=object.slug %}">
+                                    {% csrf_token %}
+                                    <div class="form-wrap form-wrap-xs">
+                                        <label class="form-label" for="comment">Enter your comment ...</label>
+                                        <input class="form-input inset-right-50" id="comment" type="text" name="comment">
+                                    </div>
+                                    <button type="submit"><img class="img-responsive center-block img-semi-transparent-inverse" src="{% static 'images/icons/icon-19-19x19.png' %}" width="19" height="19" alt=""></button>
+                                </form>
+                            </div>
+                            {% else %}
+                            <p>
+                                Please <a href="{% url 'custom_login' %}?next={{ request.path }}">Login</a> to post comment.
+                            </p>
+                            {% endif %}
+                        </div>
+                        <!-- Unit-->
+                        {% for comment in comments %}
+                        <div class="post-comment unit flex-column flex-sm-row unit-spacing-sm">
+                            <div class="unit-left">
+                                <img class="img-responsive rounded-circle" src="{{ comment.user.profile.get_photo_url }}" width="40" height="40" alt=""></div>
+                            <div class="unit-body">
+                                <p class="text-small text-ubold"><a class="text-black">
+                                    {{ comment.user.get_full_name }}
+                                </a></p>
+                                <p class="text-extra-small-10 text-silver-chalice">
+                                    {{ comment.date_updated }}
+                                </p>
+                                <p class="text-small text-silver-chalice font-italic">
+                                    {{ comment.text }}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

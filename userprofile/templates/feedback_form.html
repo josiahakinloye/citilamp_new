@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{{ booking.tour.cover_photo.url }}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">Tour Feedback</h1>
+                    <h4 class="font-italic">{{ booking.tour.title }}</h4>
+                    <h6 class="font-italic">{{ booking.tour.get_cities_list|join:', ' }}</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-34">
+        <div class="row">
+            <div class="col-sm-6 offset-3">
+                <form method="post">
+                    {% csrf_token %}
+                    <textarea class="form-input form-control-has-validation" name="message" data-constraints="@Required">{{ form.message.value|default_if_none:'' }}</textarea>
+                    <span class="form-validation">{{ form.message.errors.0 }}</span>
+                    <button class="button button-width-110 button-primary" type="submit">SUBMIT FEEDBACK</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

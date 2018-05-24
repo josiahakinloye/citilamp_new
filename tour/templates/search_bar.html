@@ -1,0 +1,66 @@
+{% load static %}
+
+<aside class="blog-aside box box-xs d-block bg-default">
+    <div class="blog-aside-item">
+        <p class="text-black text-ubold text-uppercase text-spacing-200">Search</p>
+        <!-- RD Search Form-->
+        <form method="get">
+            <input type="hidden" name="type" value="1">
+            <div class="form-blog-search">
+                <button class="form-search-submit" type="button"><span><img class="img-responsive center-block" src="{% static 'images/icons/icon-34-16x21.png' %}" width="16" height="21" alt=""></span></button>
+                <div class="form-wrap form-wrap-xs">
+                    <label class="form-label form-search-label form-label-sm" for="tours-destination">City</label>
+                    <input class="form-search-input input-sm form-input" id="tours-destination" type="text" name="destination" value="{{ request.GET.destination|default_if_none:'' }}">
+                </div>
+            </div>
+            <div class="form-blog-search">
+                <button class="form-search-submit" type="button"><span><img class="img-responsive center-block" src="{% static 'images/icons/icon-35-19x17.png' %}" width="19" height="17" alt=""></span></button>
+                <div class="form-wrap form-wrap-xs">
+                    <label class="form-label form-search-label form-label-sm" for="tours-arrival">Arrival</label>
+                    <input class="form-search-input input-sm form-input datepicker" id="tours-arrival" type="text" name="arrival" value="{{ request.GET.arrival|default_if_none:'' }}">
+                </div>
+            </div>
+            <div class="form-blog-search">
+                <button class="form-search-submit" type="button"><span><img class="img-responsive center-block" src="{% static 'images/icons/icon-36-19x17.png' %}" width="19" height="17" alt=""></span></button>
+                <div class="form-wrap form-wrap-xs">
+                    <label class="form-label form-search-label form-label-sm" for="tours-departure">Departure</label>
+                    <input class="form-search-input input-sm form-input datepicker" id="tours-departure" type="text" name="departure" value="{{ request.GET.departure|default_if_none:'' }}">
+                </div>
+            </div>
+            <div class="form-blog-search">
+                <input type="submit" class="button button-primary button-block" value="Search">
+            </div>
+        </form>
+    </div>
+    <hr class="hr bg-gallery">
+    <form id="type2_search_form" method="get">
+        <input type="hidden" name="type" value="2">
+        <div class="blog-aside-item">
+            <p class="text-black text-ubold text-uppercase text-spacing-200">Categories</p>
+            <!-- List-->
+            <ul class="list list-1 list-checkbox text-left">
+                {% for item in categories %}
+                    <li>
+                        <label class="checkbox-inline checkbox-inline-left">
+                            <input class="checkbox-custom" name="category_filters" value="{{ item.id }}" type="checkbox" {% if item.id|stringformat:'i' in filters %}checked{% endif %}>
+                            <span class="text-small">{{ item.name }} ({{ item.count }})</span>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <br>
+        <div class="blog-aside-item box-range">
+            <p class="text-black text-ubold text-uppercase text-spacing-200">PRICE RANGE</p>
+            <!--RD Range-->
+            <div class="rd-range" data-min="500" data-max="{{ max_price }}" data-start="[500, {% if max_price_filter %}{{ max_price_filter }}{% else %}{{ max_price }}{% endif %}]" data-step="1" data-tooltip="true" data-min-diff="500" data-input=".rd-range-input-value-1" data-input-2=".rd-range-input-value-2"></div>
+        </div>
+        <input id="search_min_price" type="hidden" name="min_price" value="500">
+        <input id="search_max_price" type="hidden" name="max_price" value="{{ max_price|floatformat:0 }}">
+        <input type="submit" class="button button-primary button-width-110" value="Search">
+    </form>
+    <br>
+    <div class="text-center">
+        <a href="{% url 'tours_all' %}">Clear filters</a>
+    </div>
+</aside>

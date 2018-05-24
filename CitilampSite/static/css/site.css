@@ -1,0 +1,28 @@
+#tour_showcase {
+    height: 100%;
+}
+
+input[name=submit] {
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.team-member:hover:before {
+    opacity: 0;
+}
+
+.quote-fullwidth .quote-fullwidth-img-wrap:before {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 992px) {
+    .form-inline-search .form-inline-item-xs {
+        max-width: 120px;
+    }
+}
+
+.currency-input {
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}

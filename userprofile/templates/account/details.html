@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+img.rounded-circle {
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+</style>
+{% endblock %}
+
+{% block title %}Account Details{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black" data-parallax-img="{% static 'images/backgrounds/background-18-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="container section-80 section-md-top-135 section-md-bottom-145">
+                <div class="row justify-content-sm-center">
+                    <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4 text-left">
+                        <!-- Box-->
+                        <div class="box box-lg box-lg-variant-2 bg-default text-center">
+                            <h5 class="text-ubold">Account Details</h5>
+                            <img class="img-responsive rounded-circle" src="{{ user.profile.get_photo_url }}" width="100">
+                            <p>
+                                <strong>First name:</strong>
+                                {{ user.first_name }}
+                            </p>
+                            <p>
+                                <strong>Last name:</strong>
+                                {{ user.last_name }}
+                            </p>
+                            {% if user.email %}
+                            <p>
+                                <strong>Email:</strong>
+                                {{ user.email }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

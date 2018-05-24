@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+.icon-filled-turquoise {
+    background: none;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{{ tour.cover_photo.url }}">
+        <div class="parallax-content">
+            <div class="container">
+                <div class="row justify-content-sm-center align-items-sm-center section-34 section-md-top-145 section-md-bottom-100 section-lg-top-100 section-cover">
+                    <div class="col-12">
+                        <h1 class="d-none d-lg-inline-block">{{ tour.title }}</h1>
+                        <h6 class="font-italic">{{ tour.headline }}</h6>
+                        {% if tour.get_remaining_seats > 0 %}
+                            <a class="button button-primary" href="{% url 'tour_booking' tour_id=tour.id %}">Book Now</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'tour_utils.html' %}
+
+    <!-- Tour Program-->
+    {% if programs %}
+        <section class="section-70 section-md-bottom-80">
+            <div class="container">
+                <h3>Tour Program</h3>
+                <p>Here is what’s included in the program of this tour</p>
+                <!-- Owl Carousel-->
+                <div class="owl-carousel owl-dots-primary owl-dots-lg-reveal owl-navs-lg-veil text-left" data-items="1" data-md-items="2" data-lg-items="3" data-stage-padding="5" data-loop="false" data-margin="30" data-mouse-drag="false" data-dots="true" data-nav="true">
+                    {% for program in programs %}
+                        <div class="owl-item">
+                            <div class="box-program">
+                                <!-- Unit-->
+                                <div class="unit flex-row unit-spacing-sm">
+                                    <div class="unit-left text-center">
+                                        <h3 class="text-ubold text-primary line-height-1">
+                                            {{ program.day_start }}-{{ program.day_end }}
+                                        </h3>
+                                        <p class="text-extra-small text-spacing-1000 text-black text-uppercase line-height-1 inset-left-10">day</p>
+                                    </div>
+                                    <div class="unit-body">
+                                        <p class="text-small text-ubold text-uppercase text-black">
+                                            {{ program.title }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="box-program-content inset-left-10 inset-right-10">
+                                    <hr class="hr bg-gallery">
+                                    <p class="text-small text-silver-chalice">{{ program.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if photos %}
+        <section>
+            <div class="owl-carousel owl-carusel-inset-bottom owl-nav-type-3 owl-dots-primary" data-lightgallery="group" data-items="1" data-md-items="2" data-lg-items="3" data-xl-items="5" data-stage-padding="20" data-loop="true" data-margin="6" data-mouse-drag="false" data-dots="true" data-nav="true">
+                {% for photo in photos %}
+                    <div class="owl-item">
+                        <a class="thumbnail-rayen" data-lightgallery="item" href="{{ photo.photo.url }}">
+                    <span class="figure"><img class="img-responsive center-block" width="370" height="310" src="{{ photo.photo.url }}" alt="">
+                        <span class="figcaption">
+                            <span class="icon icon-xl fa fa-search-plus text-white"></span>
+                        </span>
+                    </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if weather_forcast %}
+    <section class="section parallax-container bg-black wow fadeIn" data-parallax-img="{% static 'images/backgrounds/background-20-1920x900.jpg' %}" data-wow-delay=".2s">
+        <div class="parallax-content">
+            <div class="bg-overlay-inverse-md-darker">
+                <div class="container section-80 section-md-top-70">
+                    <h3 class="text-white">Weather Forcast</h3>
+                    <div class="row row-30 row-sm justify-content-sm-center justify-content-lg-start text-sm-left">
+                        {% for item in weather_forcast %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="box box-sm bg-default d-block">
+                                <div class="unit flex-column flex-sm-row unit-spacing-sm">
+                                    <div class="unit-left">
+                                        <div class="icon-circle icon-circle-lg icon-filled-turquoise center-block"><img class="img-responsive center-block" src="{{ item.condition_icon }}" width="40" alt=""></div>
+                                    </div>
+                                    <div class="unit-body">
+                                        <p class="text-small text-black text-uppercase text-ubold">
+                                            {{ item.weekday }}, {{ item.day }}
+                                        </p>
+                                        <p class="text-small text-black">
+                                            {{ item.max_temp }}&deg;C / {{ item.min_temp }}&deg;C
+                                        </p>
+                                        <p class="text-small text-silver-chalice">
+                                            {{ item.condition_text }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="section-top-50">
+        <div class="container">
+            <h3>Trip Advisor</h3>
+            {% if health_advices %}
+                <h5>Health</h5>
+                <div class="box box-accordion box-accordion-xs bg-default" style="width:100%; margin-top: 20px; margin-bottom: 20px">
+                    <!-- Classic Accordion-->
+                    <div class="responsive-tabs responsive-tabs-classic" data-type="accordion">
+                        <ul class="resp-tabs-list accordion-xs" data-group="accordion-xs">
+                            {% for item in health_advices %}
+                                {% if item.disease_name %}
+                                    <li>{{ item.disease_name }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <div class="resp-tabs-container accordion-xs" data-group="accordion-xs">
+                            {% for item in health_advices %}
+                                {% if item.disease_name %}
+                                    <div>
+                                        <p>{{ item.tip }}</p>
+                                        {% if item.disease_link %}
+                                            <a href="{{ item.disease_link }}" target="_blank" class="button button-xs button-width-110 button-primary">Read more</a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if safety %}
+                <h5>Safety</h5>
+                <p class="text-ubold">Country: {{ safety.name }}</p>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">Safety (Human Attack)</div>
+                    <div class="col-md-3 col-sm-6">{{ safety.human_attack_safety.status }}</div>
+                    <div class="col-md-3 col-sm-6">Global Peace Index</div>
+                    <div class="col-md-3 col-sm-6">{{ safety.human_attack_safety.index }}</div>
+
+                    <div class="col-md-3 col-sm-6">Safety (Natural Disaster)</div>
+                    <div class="col-md-3 col-sm-6">{{ safety.natural_disaster_safety.status_text }}</div>
+                    <div class="col-md-3 col-sm-6">World Risk Index</div>
+                    <div class="col-md-3 col-sm-6">{{ safety.natural_disaster_safety.index }}</div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="section-top-50 section-bottom-80">
+        <div class="container">
+            <h3>Book This Tour</h3>
+            <p class="text-small text-spacing-200 font-italic">STARTING PRICE ${{ tour.get_price }}</p>
+            {% if tour.get_remaining_seats > 0 %}
+                <a class="button button-primary" href="{% url 'tour_booking' tour_id=tour.id %}">Book Now</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <script>
+        var EXCHANE_RATE = '{{ current_rate }}';
+        function update_rate(e) {
+            var amount = e.value;
+            if (!isNaN(parseFloat(amount)) && isFinite(amount) && !isNaN(parseFloat(EXCHANE_RATE))) {
+                var el = document.getElementById('dest_currency');
+                el.value = (parseFloat(amount) * parseFloat(EXCHANE_RATE)).toFixed(2);
+            }
+        }
+        function update_rate_r(e) {
+            var amount = e.value;
+            if (!isNaN(parseFloat(amount)) && isFinite(amount) && !isNaN(parseFloat(EXCHANE_RATE))) {
+                var el = document.getElementById('user_currency');
+                el.value = (parseFloat(amount) / parseFloat(EXCHANE_RATE)).toFixed(2);
+            }
+        }
+    </script>
+{% endblock %}

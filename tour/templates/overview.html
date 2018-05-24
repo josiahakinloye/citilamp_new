@@ -1,0 +1,30 @@
+<section class="section-34 section-md-bottom-45 bg-alabaster">
+    <div class="container">
+        <div class="row justify-content-sm-center">
+            <div class="col-sm-10 col-md-8 col-lg-12">
+                <div class="row row-40 justify-content-sm-center list-inline-dashed-vertival">
+                    <div class="col-sm-6 col-md-5 col-lg-3">
+                        <p class="text-extra-small text-silver-chalice font-italic text-uppercase text-spacing-200">Date</p>
+                        <p class="text-big text-ubold text-black text-uppercase">
+                            {{ tour.start_date }} - {{ tour.end_date }}
+                        </p>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-lg-3">
+                        <p class="text-extra-small text-silver-chalice font-italic text-uppercase text-spacing-200">DURATION</p>
+                        <p class="text-big text-ubold text-black text-uppercase">
+                            {{ tour.get_tour_days }} days
+                        </p>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-lg-3">
+                        <p class="text-extra-small text-silver-chalice font-italic text-uppercase text-spacing-200">PRICE STARTING FROM</p>
+                        <p class="text-big text-ubold text-black text-uppercase">${{ tour.get_price }}</p>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-lg-3">
+                        <p class="text-extra-small text-silver-chalice font-italic text-uppercase text-spacing-200">PLACES AVAILABLE</p>
+                        <p class="text-big text-ubold text-black text-uppercase">{{ tour.get_remaining_seats }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

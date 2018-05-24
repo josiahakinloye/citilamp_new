@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-38-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">All Tours For You</h1>
+                    <h6 class="font-italic">{{ tours|length }} tours found</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-80 section-md-bottom-70 bg-wild-wand">
+        <div class="container">
+            <div class="row row-50 justify-content-sm-center">
+                <div class="col-md-11 col-lg-9 order-lg-1">
+                    <div class="row row-20 justify-content-sm-between">
+                        <div class="col-md-6 col-md-3 text-md-left">
+                            <div class="d-inline-block inset-md-left-20 inset-lg-left-0">
+                                <div class="pull-left inset-right-10">
+                                    <p class="text-extra-small text-uppercase text-black">Sort By:</p>
+                                </div>
+                                <div class="pull-right shadow-drop-xs d-inline-block select-xs">
+                                    <!--Select 2-->
+                                    <select id="tour_sort_select" class="form-input select-filter" data-minimum-results-for-search="Infinity" data-constraints="@Required">
+                                        <option value="2" {% if request.session.tour_sort == '2' %}selected{% endif %}>Newest</option>
+                                        <option value="3" {% if request.session.tour_sort == '3' %}selected{% endif %}>Popularity</option>
+                                    </select>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-3 text-md-right">
+                            <div class="d-inline-block inset-md-right-20 inset-lg-right-0">
+                                <div class="pull-left inset-right-10">
+                                    <p class="text-extra-small text-uppercase text-black">View:</p>
+                                </div>
+                                <div class="pull-right">
+                                    <!-- List Inline-->
+                                    <ul class="list-inline list-primary-filled text-center list-top-panel">
+                                        <li {% if request.session.tour_view == 'list' %}class="active"{% endif %}>
+                                            <form method="post" id="list_view_form">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="view_type" value="list">
+                                                <a href="#" onclick="document.getElementById('list_view_form').submit();" class="shadow-drop-lg">
+                                                    <span class="icon icon-sm icon-square mdi mdi-format-list-bulleted"></span>
+                                                </a>
+                                            </form>
+                                        </li>
+                                        <li {% if request.session.tour_view == 'grid' %}class="active"{% endif %}>
+                                            <form method="post" id="grid_view_form">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="view_type" value="grid">
+                                                <a href="#" onclick="document.getElementById('grid_view_form').submit();" class="shadow-drop-lg">
+                                                    <span class="icon icon-sm icon-square mdi mdi-view-module"></span>
+                                                </a>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if request.session.tour_view == 'grid' %}
+                        {% include 'tours_grid.html' %}
+                    {% else %}
+                        {% include 'tours_list.html' %}
+                    {% endif %}
+                    <!-- Classic Pagination-->
+                    <ul class="list-inline pagination-modern">
+                        {% if tours.has_previous %}
+                        <li class="prev">
+                            <a class="icon icon-xxs icon-circle mdi mdi-chevron-left" href="?page={{ tours.previous_page_number }}"></a>
+                        </li>
+                        {% endif %}
+                        <li class="text-silver-chalice">
+                            Page {{ tours.number }} of {{ tours.paginator.num_pages }}
+                        </li>
+                        {% if tours.has_next %}
+                        <li class="next">
+                            <a class="icon icon-xxs icon-circle mdi mdi-chevron-right" href="?page={{ tours.next_page_number }}"></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-10 col-lg-3 text-lg-left">
+                    <!-- Aside-->
+                    {% include 'search_bar.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

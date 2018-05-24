@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-21-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">About Us</h1>
+                    <h6 class="font-italic">Learn More About SunTravel</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us-->
+    <section class="section-80 section-md-top-125">
+        <div class="container">
+            <div class="row row-60 justify-content-sm-center justify-content-xl-between">
+                <div class="col-md-6 order-md-1 col-xl-5 text-md-left">
+                    <h3>Traveling. Tours. Adventure.</h3>
+                    <p class="text-offset-1">
+                        We are committed to offering travel services of the highest
+                        quality, combining our energy and enthusiasm, with our
+                        years of experience. Our greatest satisfaction comes in
+                        serving large numbers of satisfied clients who have
+                        experienced the joys and inspiration of travel.
+
+                    </p>
+                    <a class="button button-primary button-offset-1" href="{% url 'tours_all' %}">view tours</a>
+                </div>
+                <div class="col-md-5 offset-xl-1 text-center">
+                    <div class="row row-30 align-items-sm-end justify-content-center">
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-01-118x89.png' %}" width="118" height="89" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-02-79x89.png' %}" width="79" height="89" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-03-138x98.png' %}" width="138" height="98" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-04-144x93.png' %}" width="144" height="93" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-05-138x96.png' %}" width="138" height="96" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-06-138x98.png' %}" width="138" height="98" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-07-154x69.png' %}" width="154" height="69" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-08-139x74.png' %}" width="139" height="74" alt=""></a></div>
+                        <div class="col-sm-5 col-md-6 col-lg-4"><a class="d-inline-block" href="#"><img class="img-responsive img-semi-transparent-inverse center-block" src="{% static 'images/places/place-09-132x84.png' %}" width="132" height="84" alt=""></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

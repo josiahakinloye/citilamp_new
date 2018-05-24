@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+    <section class="section parallax-container bg-black" data-parallax-img="{% static 'images/backgrounds/background-25-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="container section-80 section-md-top-135 section-md-bottom-165">
+                <div class="row justify-content-sm-center">
+                    <div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+                        <!-- Box-->
+                        <div class="box box-lg d-block bg-default inset-xl-left-60 inset-xl-right-60">
+                            <p>An email has been sent to your email address containing account activation link. Please click on the activation link to activate your account.</p>
+                            <br>
+                            <a href="{% url 'account_login' %}">
+                                <button class="button button-block button-icon button-icon-right button-primary" type="button"><span>Login</span><span class="icon icon-xxs mdi mdi-chevron-right" style="float:none; margin-top:-1px;"></span></button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
