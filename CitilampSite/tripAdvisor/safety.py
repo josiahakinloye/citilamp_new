@@ -124,10 +124,6 @@ def prepare_recent_disaster_table():
     #
     # for data in copy.deepcopy(json_data):
     #     data['level'] = reformat_image_ref(data['level'])
-    print(type(json_data))
-    for data in json_data:
-        print(type(data))
-        print("\n")
     return json_data
 
 # [{'location': '[Fuego Volcano]  Chimaltenango, Escuintla and Sacatep?quez departments', 'id': '63371', 'timeAgo': '12 days ago.', 'country': 'Guatemala', 'level': "<img src='images/level/level-5.gif' width='68' height='8' border='0' alt='Damage level'/>\n", 'updated': '9', 'category': 'Volcano Eruption', 'edis_code': 'VE-20180604-63371-GTM', 'eventDate': 'June 04 2018 03:22 AM'}, {'location': '[Kilauea volcano]  State of Hawaii', 'id': '62944', 'timeAgo': '43 days ago.', 'country': 'USA', 'level': "<img src='images/level/level-4.gif' width='68' height='8' border='0' alt='Damage level'/>\n", 'updated': '35', 'category': 'Volcano Eruption', 'edis_code': 'VE-20180504-62944-USA', 'eventDate': 'May 04 2018 04:14 AM'}]
