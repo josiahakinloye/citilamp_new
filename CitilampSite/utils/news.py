@@ -36,7 +36,7 @@ def get_headline_news(country=None):
     :return: map object that contains 10 headlines
     """
     url = 'https://newsapi.org/v2/top-headlines'
-    params = 'apiKey=' + settings.NEWS_API_KEY
+    params = 'apiKey=2c49a8924d2341d3b99f22f819103504'
     if country:
         params += '&country=' + country
     else:
@@ -53,4 +53,6 @@ def get_headline_news(country=None):
 if __name__ == "__main__":
     headline_news = get_headline_news()
     for headline in headline_news:
+        print(type(headline))
+        print("\n")
         print(headline)
