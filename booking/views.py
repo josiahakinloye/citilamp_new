@@ -11,5 +11,7 @@ class FlightBookingView(FormView):
     # success_url = '/thanks'
 
     def form_valid(self, form):
-        pprint(form)
+        print("form got submitted")
+        print(form)
+        #todo feed data into api
         return super().form_valid(form)
