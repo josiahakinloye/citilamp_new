@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'AdsSystem.apps.AdsSystemConfig',
     'blog.apps.BlogConfig',
+    'booking.apps.BookingConfig',
 ]
 
 #graqhql related

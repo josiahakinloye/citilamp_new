@@ -14,6 +14,7 @@ urlpatterns = [
 
     url(r'',include('userprofile.urls')),
     url(r"^account/", include("account.urls")),
+    url(r"^booking/", include('booking.urls')),
     url(r'',include('citilamp.urls')),
     url(r'',include('AdsSystem.urls')),
     url(r'tours/',include('tour.urls')),

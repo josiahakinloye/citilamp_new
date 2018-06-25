@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-38-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                    <h1 class="d-none d-lg-inline-block">All Tours For You</h1>
+                    <h6 class="font-italic">{{ tours|length }} tours found</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row">
+        <div class="container">
+            <form>
+                {% csrf_token %}
+                {% for field in form %}
+            <div class="form-group">
+               {{ field.label_tag }}  {{field}}
+            </div>
+                {% endfor %}
+            <input type="submit" value="Book flight"/>
+           </form>
+        </div>
+    </section>
+
+{% endblock %}
