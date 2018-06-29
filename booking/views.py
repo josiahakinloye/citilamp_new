@@ -1,41 +1,56 @@
 from pprint import pprint
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 
 from .forms import FlightBookingForm
 # Create your views here.
+import logging
 import requests
 
 flight_booking_search = "https://api.sandbox.amadeus.com/v1.2/flights/affiliate-search"
 
-def search(apikey, origin, destination, departure_date, **kwargs):
-    parmaters = kwargs
-    parmaters['apikey'] = apikey
-    parmaters['origin'] = origin
-    parmaters['destination'] = destination
-    parmaters['departure_date'] = departure_date
-    res = requests.get(flight_booking_search, params=parmaters).json()
-    return  res
+def search(apikey, **kwargs):
+    if  'origin' and 'destination' and 'departure_date' in  kwargs:
+        parmaters = kwargs
+        parmaters['apikey'] = apikey
+        res = requests.get(flight_booking_search, params=parmaters).json()
+        return  res
+    else:
+        logging.error('Ensure the following parameters origin,'
+                      ' destination and departure_date were passed in.')
+        raise Exception()
+
+# lastthougths redircet to process flight then pass in form data use stackoverflow post  as guide
 
 
-class FlightBookingView(FormView):
-    template_name = 'book_flight.html'
-    form_class =  FlightBookingForm
-    #redirect to a template
-    # success_url = '/'
+def book_flight(request):
+    # if this is a POST request we need to process the form data
+    # if request.method == 'POST':
+    #     # create a form instance and populate it with data from the request:
+    #     form = FlightBookingForm(request.POST)
+    #     # check whether it's valid:
+    #     if form.is_valid():
+    #         # process the data in form.cleaned_data as required
+    #         # ...
+    #         # redirect to a new URL:
+    #         # return redirect('process_flight_booking', form=form)
+    #         print(form.location)
+    #         print('\n')
+    #         print(form.cleaned_data)
+    # # if a GET (or any other method) we'll create a blank form
+    # #todo submit form via get request check if dta has been filled
 
-    def form_valid(self, form):
-        print("form got submitted")
-        self.location = form.cleaned_data['location']
-        self.departure_date = form.cleaned_data['departure_date']
-        # for round fields
-        self.arrival_date = form.cleaned_data['arrival_date']
-        # todo put in template that is defulted to 1
-        self.no_of_adults = form.cleaned_data['no_of_adults']
-        self.no_of_children = form.cleaned_data['no_of_children']
-        return super().form_valid(form)
+    if request.GET.get('location') is not None:
+        form = FlightBookingForm(request.GET)
+        if form.is_valid():
+            pass
+    else:
+        form=FlightBookingForm()
 
-    def get_success_url(self, form):
-        #lastthoughts how can data be passed from form to another view in django
-        pass
 
+    return render(request, 'book_flight.html', {'form': form})
+
+
+def process_flight(request):
+    print('processing flight')
+    return render(request,'process_flight.html', {'post', request})

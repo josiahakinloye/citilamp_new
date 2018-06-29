@@ -13,8 +13,7 @@
     </section>
     <section class="row">
         <div class="container">
-            <form method="post">
-                {% csrf_token %}
+            <form method="get">
                 {% for field in form %}
             <div class="form-group">
                {{ field.label_tag }}  {{ field }}
