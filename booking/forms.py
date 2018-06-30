@@ -2,7 +2,7 @@ from django import forms
 
 class FlightBookingForm(forms.Form):
     origin = forms.CharField(widget=forms.TextInput(attrs={'value':'LON'}))
-    destination = forms.CharField(widget=forms.TextInput(attrs={'value':'DOB'}))
+    destination = forms.CharField(widget=forms.TextInput(attrs={'value':'DUB'}))
     departure_date = forms.DateField(input_formats=['%Y-%m-%d'],widget=forms.TextInput(
         attrs={'value': "2018-12-24"}))
     #for round trips

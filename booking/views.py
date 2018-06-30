@@ -14,6 +14,7 @@ def search_for_flights(apikey, **kwargs):
         parmaters = kwargs
         parmaters['apikey'] = apikey
         print(parmaters)
+        #todo change currency to dollars here
         res = requests.get(flight_booking_search, params=parmaters).json()
         print(res)
         return  res
@@ -24,6 +25,7 @@ def book_flight(request):
         if form.is_valid():
             #todo pass to api then get apikey then render content, test if api needs data in string or python datatype,
             # also look up bootstrap cars
+            #request.GET does not behave exactly like a dict, so it should not passed around in the application
             flight_form_dict = {}
             for k,v in request.GET.items():
                 flight_form_dict[k] = v
