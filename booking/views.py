@@ -9,22 +9,17 @@ from .forms import FlightBookingForm
 
 flight_booking_search = "https://api.sandbox.amadeus.com/v1.2/flights/affiliate-search"
 
+
 def search_for_flights(apikey, **kwargs):
-    if  'origin' and 'destination' and 'departure_date' in  kwargs:
         parmaters = kwargs
         parmaters['apikey'] = apikey
+        print(parmaters)
         res = requests.get(flight_booking_search, params=parmaters).json()
+        print(res)
         return  res
-    else:
-        logging.error('Ensure the following parameters origin,'
-                      ' destination and departure_date were passed in.')
-        raise Exception()
-
-# lastthougths redircet to process flight then pass in form data use stackoverflow post  as guide
-
 
 def book_flight(request):
-    if request.GET.get('location') is not None:
+    if request.GET.get('origin') is not None:
         form = FlightBookingForm(request.GET)
         if form.is_valid():
             #todo pass to api then get apikey then render content, test if api needs data in string or python datatype,
