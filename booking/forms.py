@@ -2,7 +2,8 @@ from django import forms
 
 class FlightBookingForm(forms.Form):
     location = forms.CharField(label='Location')
-    departure_date = forms.DateField(input_formats=['%d/%m/%Y',],widget=forms.TextInput(
+    destination = forms.CharField()
+    departure_date = forms.DateField(input_formats=['%Y-%m-%d'],widget=forms.TextInput(
         attrs={'placeholder': "24/12/2018"}))
     #for round fields
     arrival_date = forms.DateField(required=False, input_formats=['%d/%m/%Y',],widget=forms.TextInput(
