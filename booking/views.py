@@ -15,6 +15,18 @@ def search_for_flights(apikey, **kwargs):
         res = requests.get(flight_booking_search, params=parmaters).json()
         return res
 
+def serialize_flight_results(old_dict, carriers_meta):
+    new_dict = {}
+    try:
+        new_dict['booking_link'] = old_dict['deep_link']
+        new_dict['total_fare'] = old_dict['fare']['total_price']
+        new_dict['airline'] = carriers_meta[old_dict['airline']]['name']
+        new_dict['travel_class'] = old_dict['travel_class']
+    except KeyError:
+        #todo tigger 404 page but enter production environ first
+        raise Exception('Something went wrong')
+    return new_dict
+
 
 def book_flight(request):
     if request.GET.get('origin') is not None:
@@ -27,8 +39,11 @@ def book_flight(request):
                 flight_form_dict[k] = v
             # todo prepare function that serializes  info, dont forget to use that empty tag
             flight_results = search_for_flights(settings.AMADEUS_API_KEY, **flight_form_dict)
+            carries_dict = flight_results['meta']['carriers']
+            data_to_display = [serialize_flight_results(results,carries_dict) for results in flight_results['results'] ]
             # return redirect('show_flights_search_results', b=json.dumps(flight_results))
-            return render(request, 'process_flight.html', {'results': flight_results})
+            return render(request, 'process_flight.html', {'results': data_to_display})
     else:
         form = FlightBookingForm()
     return render(request, 'book_flight.html', {'form': form})
+
