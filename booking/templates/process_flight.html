@@ -5,15 +5,13 @@
         <div class="parallax-content">
             <div class="bg-overlay-darker">
                 <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
-                    <h1 class="d-none d-lg-inline-block">All Tours For You</h1>
-                    <h6 class="font-italic">{{ tours|length }} tours found</h6>
                 </div>
             </div>
         </div>
     </section>
     <section class="row">
         <div class="container">
-            <p>Note all prices are in dollars, unless specified not.</p>
+            <p>Note all prices are in dollars, unless specified.</p>
             <div class="row justify-content-sm-center">
                 <div class="col-lg-10 col-xl-12">
                     <div class="row row-30 row-offset-1 justify-content-sm-between">
@@ -24,7 +22,7 @@
                                     <div class="post-box d-block text-left">
                                         <div class="post-box-caption">
                                             <div class="post-box-title text-ubold">
-                                                <a class="text-black" target="_blank" href="{{ item.urlToNewsArticle }}"> Airline: {{ results.airline }}</a>
+                                                <p class="text-black"> Airline: {{ result.airline }}</p>
                                             </div>
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">Class: {{result.travel_class}}</li>
@@ -37,6 +35,8 @@
                                     </div>
                                 </div>
                             </div>
+                        {% empty %}
+                            <strong class="center-block">No flight was found</strong>
                         {% endfor %}
                 </div>
             </div>
