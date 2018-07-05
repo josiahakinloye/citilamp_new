@@ -22,6 +22,9 @@ def serialize_flight_results(old_dict, carriers_meta):
         new_dict['total_fare'] = old_dict['fare']['total_price']
         new_dict['airline'] = carriers_meta[old_dict['airline']]['name']
         new_dict['travel_class'] = old_dict['travel_class']
+        outbound_flight_info = old_dict['outbound']['flights'][0]
+        new_dict['arrival_time'] = outbound_flight_info['arrives_at'][-5:]
+        new_dict['departure_time'] = outbound_flight_info['departs_at'][-5:]
     except KeyError:
         #todo tigger 404 page but enter production environ first
         raise Exception('Something went wrong')
@@ -32,18 +35,17 @@ def book_flight(request):
     if request.GET.get('origin') is not None:
         form = FlightBookingForm(request.GET)
         if form.is_valid():
-            # todo  look up bootstrap cars
             # request.GET does not behave exactly like a dict, so it should not passed around in the application
             flight_form_dict = {}
             for k, v in request.GET.items():
                 flight_form_dict[k] = v
-            # todo prepare function that serializes  info, dont forget to use that empty tag
+            # # todo dont forget to use that empty tag
             flight_results = search_for_flights(settings.AMADEUS_API_KEY, **flight_form_dict)
-            carries_dict = flight_results['meta']['carriers']
-            data_to_display = [serialize_flight_results(results,carries_dict) for results in flight_results['results'] ]
-            # return redirect('show_flights_search_results', b=json.dumps(flight_results))
+            carriers_dict = flight_results['meta']['carriers']
+            #todo airline nt showing well and errors not showing on front, use the error fiels stuff in template
+            data_to_display = [serialize_flight_results(result,carriers_dict) for result in flight_results['results']]
+            print(data_to_display)
             return render(request, 'process_flight.html', {'results': data_to_display})
     else:
         form = FlightBookingForm()
     return render(request, 'book_flight.html', {'form': form})
-
