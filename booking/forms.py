@@ -1,6 +1,8 @@
 from django import forms
 
 
+from datetime import date
+
 class FlightBookingForm(forms.Form):
     iata_list = [('KBL', 'Hamid Karzai International Airport, AFGHANISTAN'), ('TIA', 'Tirana International Airport Nënë Tereza, ALBANIA'), ('ALG', 'Houari Boumediene Airport, ALGERIA'), ('LAD', 'Aeroporto Internacional 4 De Fevereiro, ANGOLA'), ('TNM', 'Aeropuerto Teniente Rodolfo Marsh, ANTARCTICA'), ('ANU', 'V. C. Bird International Airport, ANTIGUA AND BARBUDA'), ('ROS', 'Aeropuerto Internacional Rosario Islas Malvinas, ARGENTINA'), ('SFN', 'Aeropuerto De Santa Fe - Sauce Viejo, ARGENTINA'), ('EZE', 'Aeropuerto Internacional Ministro Pistarini, ARGENTINA'), ('AEP', 'Aeroparque Jorge Newbery, ARGENTINA'), ('COR', 'Aeropuerto Internacional De Córdoba, ARGENTINA'), ('MDQ', 'Aeropuerto Internacional De Mar Del Plata “Ástor Piazzolla”, ARGENTINA'), ('USH', 'Aeropuerto Internacional De Ushuaia Malvinas Argentinas, ARGENTINA'), ('MDZ', 'Aeropuerto Internacional Gobernador Francisco Gabrielli, ARGENTINA'), ('EVN', "Zvart'Nots' Mijazgayin Odanavakayan, ARMENIA"), ('PER', 'Perth Airport, AUSTRALIA'), ('GOV', 'Gove Airport, AUSTRALIA'), ('DRW', 'Darwin International Airport, AUSTRALIA'), ('ADL', 'Adelaide Airport, AUSTRALIA'), ('MQL', 'Mildura Airport, AUSTRALIA'), ('XCH', 'Christmas Island Airport, AUSTRALIA'), ('OOL', 'Gold Coast Airport, AUSTRALIA'),
                  ('CCK', 'Cocos (Keeling) Islands Airport, AUSTRALIA'), ('NTL', 'Newcastle Airport, AUSTRALIA'), ('SYD', 'Sydney (Kingsford Smith) Airport, AUSTRALIA'), ('MOO', 'Moomba Airport, AUSTRALIA'), ('MEL', 'Melbourne Airport, AUSTRALIA'), ('CBR', 'Canberra International Airport, AUSTRALIA'), ('BNE', 'Brisbane Airport, AUSTRALIA'), ('INN', 'Flughafen Innsbruck, AUSTRIA'), ('SZG', 'Salzburg Airport W. A. Mozart, AUSTRIA'), ('VIE', 'Flughafen Wien-Schwechat, AUSTRIA'), ('GRZ', 'Flughafen Graz, AUSTRIA'), ('GYD', 'Heydar Aliyev International Airport, AZERBAIJAN'),
@@ -19,6 +21,24 @@ class FlightBookingForm(forms.Form):
         attrs={'placeholder': "2018-07-08"}), help_text="For round trips", required=False)
     no_of_adults = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'value':1}),min_value=1)
     no_of_children =  forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'value':0}),min_value=0)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        departure_date = cleaned_data.get('departure_date')
+        arrival_date = cleaned_data.get('arrival_date')
+        date_today = date.today()
+
+        if arrival_date:
+            if arrival_date < date_today:
+                self.add_error('arrival_date', 'You can not arrive in the past!')
+            if departure_date > arrival_date:
+                self.add_error('arrival_date', 'Arrival date can not be than departure date.')
+
+        if departure_date < date_today:
+            self.add_error('departure_date', 'You can not depart in the past, except via time travel!')
+
+
+
 
 class HotelSearchForm(forms.Form):
     iata_list = [('KBL', 'Hamid Karzai International Airport, AFGHANISTAN'),
@@ -767,3 +787,22 @@ class HotelSearchForm(forms.Form):
         attrs={'placeholder': "2018-07-08"}))
     radius_in_km = forms.IntegerField(min_value=5, help_text="Radius around the center to look for hotels.", widget=forms.NumberInput(attrs={'value':5}))
 
+    def clean(self):
+        cleaned_data = super().clean()
+        check_in = cleaned_data.get("check_in")
+        check_out = cleaned_data.get("check_out")
+        date_today = date.today()
+
+        if check_in < date_today:
+            self.add_error('check_in',forms.ValidationError('Check in can not be in the past') )
+
+        if check_out < check_in:
+            self.add_error('check_out', 'Ensure check out date is not less than check in date ')
+            self.add_error('check_in', 'Ensure check in date is not greater than check out date ')
+
+
+        if check_out < date_today:
+            self.add_error('check_out', 'Check out date can not be in the past')
+
+        if check_in == check_out:
+            self.add_error('check_out', 'There has to be a minimum of one day difference between check in and check out')

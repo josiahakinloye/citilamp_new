@@ -34,6 +34,13 @@
                                     <li><a href="{% url 'careers' %}">Careers</a></li>
                                 </ul>
                             </li>
+                            <li {% if '/booking/' in request.path %}class="active"{% endif %}>
+                                <a>Booking</a>
+                                <ul class="rd-navbar-dropdown">
+                                    <li><a href="{% url 'book_flight' %}">Flights</a></li>
+                                    <li><a href="{% url 'hotel_search' %}">Hotels</a></li>
+                                </ul>
+                            </li>
                             <li {% if '/gallery/' in request.path %}class="active"{% endif %}>
                                 <a href="{% url 'gallery' %}">Gallery</a>
                             </li>

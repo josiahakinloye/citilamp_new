@@ -42,7 +42,7 @@ def serialize_hotel_search_result(old_hotel_dict):
         new_hotel_dict['hotel_name'] = old_hotel_dict['property_name']
         old_address = old_hotel_dict['address']
         new_hotel_dict['address'] = old_address['line1']+', '+old_address['city']
-        new_hotel_dict['amenities'] = serialize_hotel_amentities(old_hotel_dict['amenities'])
+        new_hotel_dict['amenities'] = serialize_hotel_amenities(old_hotel_dict['amenities'])
         new_hotel_dict['contacts'] = old_hotel_dict['contacts']
         new_hotel_dict['rooms'] = [serialize_hotel_room(room) for room in old_hotel_dict['rooms']]
     except KeyError:
@@ -51,7 +51,7 @@ def serialize_hotel_search_result(old_hotel_dict):
 def serialize_hotel_room(old_room):
     new_room = {}
     try:
-        new_room['booking_code'] = old_room['booking_code']
+        new_room['booking_code'] = old_room['booking_code']+''
         new_room['price'] = old_room['rates'][0]['price']
         old_room_info = old_room['room_type_info']
         new_room['description'] = old_room_info['room_type'] + ', '+ old_room_info['number_of_beds']+" "+ old_room_info['bed_type']+'bed(s)'
@@ -59,7 +59,7 @@ def serialize_hotel_room(old_room):
         logging.warning('Could not determine info for some rooms')
     return new_room
 
-def serialize_hotel_amentities(old_amenities):
+def serialize_hotel_amenities(old_amenities):
     new_amentities = ""
     if old_amenities:
         for old_amenity in old_amenities:
