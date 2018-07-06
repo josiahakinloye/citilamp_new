@@ -58,7 +58,7 @@ def serialize_hotel_room(old_room):
         new_room['booking_code'] = old_room['booking_code']
         new_room['price'] = old_room['rates'][0]['price']
         old_room_info = old_room['room_type_info']
-        new_room['description'] = old_room_info['room_type'] + ', '+ old_room_info['number_of_beds']+" "+ old_room_info['bed_type']+'(s)'
+        new_room['description'] = old_room_info['room_type'] + ', '+ old_room_info['number_of_beds']+" "+ old_room_info['bed_type']+'bed(s)'
     except KeyError:
         logging.warning('Could not determine info for some rooms')
     return new_room

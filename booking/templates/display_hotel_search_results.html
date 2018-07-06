@@ -16,7 +16,39 @@
             <div class="row justify-content-sm-center">
                 <div class="col-lg-10 col-xl-12">
                     <div class="row row-30 row-offset-1 justify-content-sm-between">
-                        {{results}}
+                        {% for hotel in results %}
+                            <div class="col-md-6 col-xl-3">
+                                <div class="inset-left-10 inset-right-10 inset-sm-left-50 inset-sm-right-50 inset-md-left-20 inset-md-right-20 inset-lg-left-10 inset-lg-right-10 inset-xl-left-0 inset-xl-right-0">
+                                <!-- Post Box-->
+                                    <div class="post-box d-block text-left">
+                                        <div class="post-box-caption">
+                                            <div class="post-box-title text-ubold">
+                                                <p class="text-black"> Hotel Name: {{ hotel.hotel_name }}</p>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Address: {{ hotel.address }}</li>
+                                                <li class="list-group-item">Amenities: {{ hotel.amenities }}</li>
+                                                <li class="list-group-item">Contacts: {{ hotel.contacts}}</li>
+                                            </ul>
+                                           <div class="post-box-title text-ubold">
+                                                <p class="text-black">Rooms:</p>
+                                            </div>
+                                          {% for room in hotel.rooms %}
+                                            <ul class="list-group list-group-flush">
+                                                <li class="">Booking Code: {{ room.booking_code }}</li>
+                                                <li class="">Description: {{ room.description }}</li>
+                                                <li class="">Price: {{ room.price }}</li>
+                                            </ul>
+                                            {% empty %}
+                                            <strong>No rooms were found</strong>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <strong class="center-block">Sorry, no hotels were found.</strong>
+                        {% endfor %}
                 </div>
             </div>
         </div>
