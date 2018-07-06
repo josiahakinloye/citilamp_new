@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="section parallax-container bg-black section-height-mac context-dark" data-parallax-img="{% static 'images/backgrounds/background-38-1920x900.jpg' %}">
+        <div class="parallax-content">
+            <div class="bg-overlay-darker">
+                <div class="container section-34 section-md-100 section-lg-top-170 section-lg-bottom-165">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row">
+        <div class="container">
+            <form method="get">
+                {% for field in form %}
+            <div class="form-group">
+                <div class="alert alert-danger" role="alert">
+                    <p>{{field.errors}}</p>
+                </div>
+                <small class="form-text text-muted">{{ field.help_text}}</small>
+                {{ field.label_tag }} {{ field }}
+            </div>
+                {% endfor %}
+            <input type="submit" value="Search For Hotels"/>
+           </form>
+        </div>
+    </section>
+
+{% endblock %}
