@@ -15,27 +15,33 @@ class FlightBookingForm(forms.Form):
     origin = forms.ChoiceField(choices=iata_list)
     destination = forms.ChoiceField(choices=iata_list)
     departure_date = forms.DateField(input_formats=['%Y-%m-%d'],widget=forms.TextInput(
-        attrs={'value': "2018-07-06"}))
+        attrs={'placeholder': "2018-07-08 ie yyyy-mm-dd"}))
     #for round trips
     arrival_date = forms.DateField(input_formats=['%Y-%m-%d'], widget=forms.TextInput(
-        attrs={'placeholder': "2018-07-08"}), help_text="For round trips", required=False)
-    no_of_adults = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'value':1}),min_value=1)
-    no_of_children =  forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'value':0}),min_value=0)
+        attrs={'placeholder': "yyyy-mm-dd"}), help_text="For round trips", required=False)
+    adults = forms.IntegerField(widget=forms.NumberInput(attrs={'value':1}),min_value=1)
+    children =  forms.IntegerField(required=False, widget=forms.NumberInput(attrs={}),min_value=0, help_text='Younger than 12 years')
+    infants = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={}),min_value=0, help_text='Younger than age 2, to be lapped by adults')
 
     def clean(self):
         cleaned_data = super().clean()
         departure_date = cleaned_data.get('departure_date')
         arrival_date = cleaned_data.get('arrival_date')
         date_today = date.today()
+        no_of_adults = cleaned_data.get('adults')
+        no_of_infants = cleaned_data.get('infants')
+
+        if no_of_infants and no_of_infants > no_of_adults:
+            self.add_error('infants', forms.ValidationError('Children can not be more than adults, lap ratio is 1:1') )
 
         if arrival_date:
             if arrival_date < date_today:
-                self.add_error('arrival_date', 'You can not arrive in the past!')
+                self.add_error('arrival_date', forms.ValidationError('You can not arrive in the past!'))
             if departure_date > arrival_date:
-                self.add_error('arrival_date', 'Arrival date can not be than departure date.')
+                self.add_error('arrival_date', forms.ValidationError('Arrival date can not be than departure date.'))
 
         if departure_date < date_today:
-            self.add_error('departure_date', 'You can not depart in the past, except via time travel!')
+            self.add_error('departure_date', forms.ValidationError('You can not depart in the past, except via time travel!'))
 
 
 
@@ -781,7 +787,7 @@ class HotelSearchForm(forms.Form):
 
     location = forms.ChoiceField(choices=iata_list, help_text='Airport to search around for hotels.')
     check_in = forms.DateField(input_formats=['%Y-%m-%d'], widget=forms.TextInput(
-        attrs={'value': "2018-07-08"}))
+        attrs={'placeholder': "Input date like 2018-07-08 ie y-m-d"}))
     # for round trips
     check_out = forms.DateField(input_formats=['%Y-%m-%d'], widget=forms.TextInput(
         attrs={'placeholder': "2018-07-08"}))
@@ -797,12 +803,12 @@ class HotelSearchForm(forms.Form):
             self.add_error('check_in',forms.ValidationError('Check in can not be in the past') )
 
         if check_out < check_in:
-            self.add_error('check_out', 'Ensure check out date is not less than check in date ')
-            self.add_error('check_in', 'Ensure check in date is not greater than check out date ')
+            self.add_error('check_out', forms.ValidationError('Ensure check out date is not less than check in date '))
+            self.add_error('check_in', forms.ValidationError('Ensure check in date is not greater than check out date '))
 
 
         if check_out < date_today:
-            self.add_error('check_out', 'Check out date can not be in the past')
+            self.add_error('check_out', forms.ValidationError('Check out date can not be in the past'))
 
         if check_in == check_out:
-            self.add_error('check_out', 'There has to be a minimum of one day difference between check in and check out')
+            self.add_error('check_out', forms.ValidationError('There has to be a minimum of one day difference between check in and check out'))

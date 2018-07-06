@@ -15,7 +15,9 @@ def book_flight(request):
             for k, v in request.GET.items():
                 flight_form_dict[k] = v
             # # todo dont forget to use that empty tag
+            print(flight_form_dict)
             flights_response = search_for_flights(settings.AMADEUS_API_KEY, **flight_form_dict)
+            print(flights_response)
             try:
                 carriers_dict = flights_response['meta']['carriers']
                 flight_results = flights_response['results']
