@@ -28,9 +28,30 @@
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">Address: {{ hotel.address }}</li>
                                                 <li class="list-group-item">Amenities: {{ hotel.amenities }}</li>
-                                                <li class="list-group-item">Contacts: {{ hotel.contacts}}</li>
                                             </ul>
                                            <div class="post-box-title text-ubold">
+                                                <p class="text-black">Contacts:</p>
+                                            </div>
+                                          {% for contact in hotel.contacts %}
+                                            <ul class="list-group list-group-flush">
+                                                {% if contact.type == 'EMAIL' %}
+                                                    <li class=""><a href="mailto:{{contact.detail}}">Email Hotel</a></li>
+
+                                                {% elif contact.type == 'URL' %}
+                                                    <li class=""><a href="{{contact.detail}}">Visit Website</a></li>
+
+                                                {% else %}
+                                                     <li class="">{{ contact.type }}: {{ contact.detail }}</li>
+                                                {% endif %}
+
+                                            </ul>
+                                            {% empty %}
+                                            <strong>No contacts were found</strong>
+                                            {% endfor %}
+
+                                            <br>
+
+                                            <div class="post-box-title text-ubold">
                                                 <p class="text-black">Rooms:</p>
                                             </div>
                                           {% for room in hotel.rooms %}
