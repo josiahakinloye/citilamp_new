@@ -14,7 +14,6 @@ def book_flight(request):
             flight_form_dict = {}
             for k, v in request.GET.items():
                 flight_form_dict[k] = v
-            # # todo dont forget to use that empty tag
             print(flight_form_dict)
             flights_response = search_for_flights(settings.AMADEUS_API_KEY, **flight_form_dict)
             print(flights_response)
@@ -22,9 +21,8 @@ def book_flight(request):
                 carriers_dict = flights_response['meta']['carriers']
                 flight_results = flights_response['results']
             except KeyError:
-                logging.error('Could not get flight results')
+                logging.error('Could not get any flight results')
                 return render(request, 'display_flight_bookings.html', {'results': []})
-            #todo airline nt showing well and errors not showing on front, use the error fiels stuff in template
             data_to_display = [serialize_flight_results(result,carriers_dict) for result in flight_results]
             return render(request, 'display_flight_bookings.html', {'results': data_to_display})
     else:
@@ -40,17 +38,12 @@ def hotel_search(request):
             hotel_search_form_dict = {}
             for k, v in request.GET.items():
                 hotel_search_form_dict[k] = v
-            # # todo dont forget to use that empty tag
-
             hotel_search_response = search_for_hotels(settings.AMADEUS_API_KEY, **hotel_search_form_dict)
             try:
                 hotel_search_results = hotel_search_response['results']
             except KeyError:
-                logging.error('Could not get hotel results')
+                logging.error('Could not get any hotel results')
                 return render(request, 'display_hotel_search_results.html', {'results': []})
-            # data_to_display = [serialize_flight_results(result,carriers_dict) for result in flight_results]
-            # print(data_to_display)
-            print(hotel_search_response)
             hotels_data_to_display = [serialize_hotel_search_result(hotel) for hotel in hotel_search_results ]
             return render(request, 'display_hotel_search_results.html', {'results': hotels_data_to_display})
     else:

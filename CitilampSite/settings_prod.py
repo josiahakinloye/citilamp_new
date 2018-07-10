@@ -1,7 +1,6 @@
-#todo change back to false
 DEBUG = False
 
-ALLOWED_HOSTS = ['','localhost', 'citilamp.com', 'paypal.com', '*.paypal.com', 'bitpay.com', 'test.bitpay.com']
+ALLOWED_HOSTS = ['localhost', 'citilamp.com', 'paypal.com', '*.paypal.com', 'bitpay.com', 'test.bitpay.com']
 
 DATABASES = {
     'default': {
