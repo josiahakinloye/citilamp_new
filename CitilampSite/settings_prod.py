@@ -1,7 +1,7 @@
 #todo change back to false
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['21cdf5bf.ngrok.io','localhost', 'citilamp.com', 'paypal.com', '*.paypal.com', 'bitpay.com', 'test.bitpay.com']
+ALLOWED_HOSTS = ['','localhost', 'citilamp.com', 'paypal.com', '*.paypal.com', 'bitpay.com', 'test.bitpay.com']
 
 DATABASES = {
     'default': {
