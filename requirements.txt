@@ -14,7 +14,7 @@ psycopg2==2.7.3.2
 six==1.11.0
 rx==1.6.0
 pylint-common==0.2.5
-djangorestframework==3.7.1
+djangorestframework==3.11.2
 isort==4.2.15
 typing==3.6.2
 olefile==0.44
