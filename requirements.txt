@@ -29,7 +29,7 @@ django-graphiql==0.4.4
 dodgy==0.1.9
 prospector==0.12.7
 astroid==1.5.3
-pyyaml==3.12
+pyyaml==5.4
 certifi==2017.11.5
 graphql-core==2.0
 graphql-relay==0.4.5
