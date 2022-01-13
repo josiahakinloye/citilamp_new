@@ -45,7 +45,7 @@ pycodestyle==2.0.0
 singledispatch==3.4.0.3
 requests==2.18.4
 idna==2.6
-pillow==4.3.0
+pillow==9.0.0
 cloudinary==1.11.0
 beautifulsoup4==4.6.0
 googlemaps==2.5.1
