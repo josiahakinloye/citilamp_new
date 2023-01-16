@@ -30,7 +30,7 @@ dodgy==0.1.9
 prospector==0.12.7
 astroid==1.5.3
 pyyaml==3.12
-certifi==2017.11.5
+certifi==2022.12.7
 graphql-core==2.0
 graphql-relay==0.4.5
 enum34==1.1.6
